@@ -1,0 +1,80 @@
+// Dario Arellano
+// Eder Naranjo
+// Rosa Sanchez
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+#include <time.h>
+struct datos
+{
+	char neve[15];
+	char deve[15];
+	char fevei[15];
+	char fevef[12];
+	char hevei[15];
+	char hevef[15];
+   tm fecha; //fecha.tm_year, fecha.tm_mon, fecha.tm_day, fecha.tm_hour, fecha.tm_min son enteros
+
+};
+void main()
+{
+	int opcion;
+	char op;
+	char ca[12];
+	char fe[20];
+	char nom[15],ape[15];
+	FILE * archivo;
+	datos eventos;
+
+	do
+	{
+        cout<<"*******PROYECTO DE EVENTOS*******"<<endl<<endl;
+        cout<<"*****Calendario de Eventos*****"<<endl<<endl;
+        cout<<"1. Ingrese nuevo Evento "<<endl;
+        cout<<"2. Visualizar Eventos"<<endl;
+        cout<<"3. salir"<<endl;
+        cout<<endl;
+        cout<<"SELECCIONE UNA OPCION: "<<endl;
+        cin>>opcion;
+        switch(opcion)
+		  {
+		  case 1:
+			{
+				system("cls");
+				archivo=fopen("registro.txt","a+");
+				cout<<"Ingrese el nombre del evento: ";
+			    cin>>eventos.neve;
+				cout<<"Ingrese la descripcion del evento: ";
+			    cin>>eventos.deve;
+				cout<<"Ingrese la fecha inicial del evento: ";
+			    cin>>eventos.fevei;
+             cout<<"Ingrese la hora inicial del evento: ";
+			    cin>>eventos.hevei;
+				cout<<"Ingrese la fecha final del evento: ";
+			    cin>>eventos.fevef;
+				cout<<"Ingrese la hola final del evento: ";
+			    cin>>eventos.hevef;
+             cout<<"Desea gardar? Si (s) o No (n)"<<endl;
+				cin>>op;
+				if (op=='s')
+				{
+					fwrite(&eventos,sizeof(struct datos),1,archivo);
+					cout<<"Registro guardado"<<endl;
+				}
+				else
+				{
+					cout<<"La informacion no se guardo "<<endl;
+				}
+				fclose(archivo);
+				cout<<"Regresar al Menu Si (s) o No (n) "<<endl;
+				cin>>op;
+				system("cls");
+				break;
+			}
+
+           
+        }
+     }while(op=='s');
+   }
