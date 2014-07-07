@@ -1,4 +1,6 @@
-// un poco mas de correciones 
+//INTEGRANTES
+//1.- Darío Arellano   789
+// un poco mas de correciones
 #include <stdio.h>
 #include <dos.h>
 #include <stdlib.h>
