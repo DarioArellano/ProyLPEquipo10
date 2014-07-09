@@ -1,12 +1,8 @@
 //INTEGRANTES
 //1.- Darío Arellano   789
 //2.- Eder Naranjo     695
-<<<<<<< HEAD
-// Ordenando la ayuda 
-=======
-// Nuevos Alcances Para finalizar con algunas funciones
-// un poco mas de correciones
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
+// Finalizacion del Proyecto de eventos
+
 #include <stdio.h>
 #include <dos.h>
 #include <stdlib.h>
@@ -14,28 +10,18 @@
 #include <conio.h>
 #include <string.h>
 #include <time.h>
+#include <fstream>
 
+ofstream Archivo("C:\Documents\GitHub\ProyLPEquipo10\Eventos.txt");//se crea el archivo
 //clase evento
 class Evento
 {
 private:
 
       int Num;//contador del vector
-<<<<<<< HEAD
 		char Codigo[5], Nombre[15], Descripcion[30];
       char FechaInicio [12], HoraInicio[7], FechaFin[12], HoraFin[7];
-=======
-		char Codigo[5]; //codigo del evento
-      char Nombre[15];//nombre del evento
-      char Descripcion[30];// descripcion del evento
-      char FechaInicio [10];
-      char HoraInicio[6];
-      char FechaFin[10];
-      char HoraFin[6];
-      char FechaInicio [12], HoraInicio[7], FechaFin[12], HoraFin[7];
-      Evento * Vec[30];//vector de eventos
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
-      Evento * Vec[30];//vector de eventos
+      Evento * Vec[30];
 
    public:
    	Evento();
@@ -56,50 +42,18 @@ private:
       char *getFechaFin(){return FechaFin;}
       char *getHoraFin(){return HoraFin;}
       //FUNCIONES
-      int Opcion(); //menu de opciones
-      void LeerEvento(); //lee un nuevo evento
-      void MostrarEvento(); //muestra un evento
-      void MostrarEventos(); //muestra todos los eventos
-      void EventosHoy(); //funcion para ver eventos de hoy
-<<<<<<< HEAD
-=======
+      int Opcion();
+      void LeerEvento();
+      void MostrarEvento();
+      void MostrarEventos();
+      void EventosHoy();
       int ValidacionFecha(int day,int month,int year);
       int ValidacionHora(int hora,int min);
-
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
-      int ValidacionFecha(int day,int month,int year);//fucnion validacion
-      int ValidacionHora(int hora,int min);//funcion validacion
-		void Buscar();//funcion buscar
+		void Buscar();
 void Semana();
       void Menu();
-<<<<<<< HEAD
-		void Recuadro(int x1,int y1,int x2,int y2,int z);//funcion grafica
-=======
-
-      void Recuadro(int x1,int y1,int x2,int y2,int z);//funcion grafica
-
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
+		void Recuadro(int x1,int y1,int x2,int y2,int z);
 };
-
- /********************************************************
-***********************FUNCION RECUADRO**************/
-void Evento::Recuadro(x1,y1,x2,y2,z)
-{
-clrscr();
-//grafica de la interfaz
-//eje y
-for (int j=y1;j<y2;j++)
-{
-gotoxy(x1,j);printf("%c", z);
-gotoxy(x2,j);printf("%c", z);
-}
-//eje x
-for (int i=x1;i<(x2+1);i++)
-{
-gotoxy(i,y1);printf("%c", z);
-gotoxy(i,y2);printf("%c", z);
-}
-}
 
 /********************************************************
 ***********************COSNTRUCTOR***********************/
@@ -208,29 +162,12 @@ void Evento::LeerEvento(){
 clrscr();
 Recuadro(1,1,80,8,177);//se grafica el cuadro
 int day, month, year, hora, min;
-<<<<<<< HEAD
 char cod[5], nom[15], des[30], FechaI [12], HoraI [7], FechaF [12], HoraF [7];
-=======
-char cod[5];
-char nom[15];
-char des[30];
-char FechaI [10];
-char HoraI [5];
-char FechaF [10];
-char HoraF [5];
-cout<<"\n*** INGRESAR NUEVO EVENTO ***"<<endl;
-
-  char cod[5], nom[15], des[30], FechaI [12], HoraI [7], FechaF [12], HoraF [7];
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
 gotoxy(30,2);cout<<"RECOMENDACIONES";
 gotoxy(3,4);cout<<"1. Los datos de las fechas si son menores a 10 anteponer el 0.";
 gotoxy(3,5);cout<<"2. El Ingreso de Fechas es por separado 1ro dia, 2do mes, 3ro Anio.";
 gotoxy(3,6);cout<<"3. Los formatos de hora son 0-23 y minutos de 0-59.";
-<<<<<<< HEAD
 gotoxy(1,10);cout<<"*** INGRESAR NUEVO EVENTO ***"<<endl;
-=======
-
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
 cout<<"\nCodigo: "; gets(cod);
 cout<<"Nombre: "; gets(nom);
 cout<<"Descripcion: "; gets(des);
@@ -263,21 +200,7 @@ cout<<"\nIngrese Hora: ";cin>>hora; //Hora
 cout<<"Ingrese min: ";cin>>min; //Min
 }while(ValidacionHora(hora,min)!=1);
 sprintf(HoraI, "%dH%d",hora,min);
-<<<<<<< HEAD
-=======
-setHoraInicio(HoraI);
 /*****************************************/
-  //se guardan los datos en las variables globales
-setCodigo(cod);
-setNombre(nom);
-setDescripcion(des);
-setFechaInicio(FechaI);
-setHoraInicio(HoraI);
-setFechaFin(FechaF);
-
->>>>>>> be162d921aaff034b7bf2cbe7722410b82994a30
-/*****************************************/
-
 cout<<"\n\nDATOS DE FIN DEL EVENTO >>> ";
 do{
 cout<<"\nIngrese el d\241a: ";cin>>day; //Día
@@ -318,64 +241,6 @@ setHoraFin(HoraF);
 };
 
 /*******************************************************
-**********************BUSCAR EVENTO*********************/
-void Evento::Buscar(){
-if (getNum()!=0)
-{
-	char cod [10];
-	int cont=0;
-	cout<<"\n Ingrese codigo del Evento: ";gets(cod);
-	for(int i=0;i<getNum();i++)
-	{
-		if (strcmp(Vec[i]->getCodigo(),cod)==0)
-		{
-			Vec[i]->MostrarEvento();
-			cont++;
-		}
-	}
-if(cont!=0)
-cout<<"\n Evento Encontrado!!";
-else
-cout<<"\n El Evento no existe!!";
-}
-else
-{
-	cout<<"\n\n No hay Eventos Ingresados!!!!!";
-}
-}
-
-/*********************************************************
-********************EVENTOS DE ESTA SEMANA****************/
-void Evento::Semana(){
-clrscr();
-//funcion obtener la fecha de hoy
-char fecha[10]; //fecha de hoy para buscar
-time_t tiempo = time(0);
-struct tm *tlocal = localtime(&tiempo);
-char output[128];
-strftime(output,128,"%w",tlocal);
-cout<<output;
-if (strcmp(output,"0")==0)
-cout<<"  Hoy es Domingo!!!";
-if (strcmp(output,"1")==0)
-cout<<"  Hoy es Lunes!!!";
-if (strcmp(output,"2")==0)
-cout<<"  Hoy es Martes!!!";
-if (strcmp(output,"3")==0)
-cout<<"  Hoy es Miercoles!!!";
-if (strcmp(output,"4")==0)
-cout<<"  Hoy es Jueves!!!";
-if (strcmp(output,"5")==0)
-cout<<"  Hoy es Viernes!!!";
-if (strcmp(output,"6")==0)
-cout<<"  Hoy es Sabado!!!";
-getch();
-}
-
-
-
-
-/*******************************************************
 *********************FUNCION MOSTRAR EVENTO***********/
 void Evento::MostrarEvento()
 {
@@ -387,6 +252,16 @@ void Evento::MostrarEvento()
  cout<<"\nHora inicio: "<<getHoraInicio();
  cout<<"\nFecha Fin: "<<getFechaFin();
  cout<<"\nHora Fin: "<<getHoraFin()<<endl;
+
+//se agregan al texto Archivo
+Archivo<<getCodigo()<< endl;
+Archivo<<getNombre()<< endl;
+Archivo<<getDescripcion()<< endl;
+Archivo<<getFechaInicio()<< endl;
+Archivo<<getHoraInicio()<< endl;
+Archivo<<getFechaFin()<< endl;
+Archivo<<getHoraFin()<< endl;
+Archivo.close();
 };
 
 /****************************************************************
@@ -477,22 +352,24 @@ char fecha[10]; //fecha de hoy para buscar
 time_t tiempo = time(0);
 struct tm *tlocal = localtime(&tiempo);
 char output[128];
+char output2[128];
 strftime(output,128,"%w",tlocal);
-cout<<output;
+strftime(output2,128,"%W",tlocal);
 if (strcmp(output,"0")==0)
-cout<<"  Hoy es Domingo!!!";
+cout<<"Hoy es Domingo!!!";
 if (strcmp(output,"1")==0)
-cout<<"  Hoy es Lunes!!!";
+cout<<"Hoy es Lunes!!!";
 if (strcmp(output,"2")==0)
-cout<<"  Hoy es Martes!!!";
+cout<<"Hoy es Martes!!!";
 if (strcmp(output,"3")==0)
-cout<<"  Hoy es Miercoles!!!";
+cout<<"Hoy es Miercoles!!!";
 if (strcmp(output,"4")==0)
-cout<<"  Hoy es Jueves!!!";
+cout<<"Hoy es Jueves!!!";
 if (strcmp(output,"5")==0)
-cout<<"  Hoy es Viernes!!!";
+cout<<"Hoy es Viernes!!!";
 if (strcmp(output,"6")==0)
-cout<<"  Hoy es Sabado!!!";
+cout<<"Hoy es Sabado!!!";
+cout<<"\nSemana Numero: "<<output2;
 getch();
 }
 
