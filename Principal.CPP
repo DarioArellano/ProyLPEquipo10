@@ -24,6 +24,8 @@ private:
       char HoraInicio[6];
       char FechaFin[10];
       char HoraFin[6];
+      char FechaInicio [12], HoraInicio[7], FechaFin[12], HoraFin[7];
+      Evento * Vec[30];//vector de eventos
       Evento * Vec[30];//vector de eventos
 
    public:
@@ -52,7 +54,15 @@ private:
       void EventosHoy(); //funcion para ver eventos de hoy
       int ValidacionFecha(int day,int month,int year);
       int ValidacionHora(int hora,int min);
+
+      int ValidacionFecha(int day,int month,int year);//fucnion validacion
+      int ValidacionHora(int hora,int min);//funcion validacion
+		void Buscar();//funcion buscar
+void Semana();
       void Menu();
+
+      void Recuadro(int x1,int y1,int x2,int y2,int z);//funcion grafica
+
 };
 
 /********************************************************
