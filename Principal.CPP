@@ -1,8 +1,8 @@
 //INTEGRANTES
 //1.- Darío Arellano   789
 //2.- Eder Naranjo     695
-// Nuevos Alcances Para finalizar con algunas funciones
-// Poniendo comentarios Para que sirven
+//PROYECTO FINAL LISTO
+//CALENDARIO DE EVENTOS.
 #include <stdio.h>
 #include <dos.h>
 #include <stdlib.h>
