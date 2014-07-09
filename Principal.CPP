@@ -1,5 +1,7 @@
 //INTEGRANTES
 //1.- Darío Arellano   789
+//2.- Eder Naranjo     695
+// Nuevos Alcances Para finalizar con algunas funciones
 // un poco mas de correciones
 #include <stdio.h>
 #include <dos.h>
