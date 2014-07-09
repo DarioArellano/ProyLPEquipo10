@@ -65,6 +65,26 @@ void Semana();
 
 };
 
+ /********************************************************
+***********************FUNCION RECUADRO**************/
+void Evento::Recuadro(x1,y1,x2,y2,z)
+{
+clrscr();
+//grafica de la interfaz
+//eje y
+for (int j=y1;j<y2;j++)
+{
+gotoxy(x1,j);printf("%c", z);
+gotoxy(x2,j);printf("%c", z);
+}
+//eje x
+for (int i=x1;i<(x2+1);i++)
+{
+gotoxy(i,y1);printf("%c", z);
+gotoxy(i,y2);printf("%c", z);
+}
+}
+
 /********************************************************
 ***********************COSNTRUCTOR***********************/
 
@@ -158,6 +178,13 @@ char HoraI [5];
 char FechaF [10];
 char HoraF [5];
 cout<<"\n*** INGRESAR NUEVO EVENTO ***"<<endl;
+
+  char cod[5], nom[15], des[30], FechaI [12], HoraI [7], FechaF [12], HoraF [7];
+gotoxy(30,2);cout<<"RECOMENDACIONES";
+gotoxy(3,4);cout<<"1. Los datos de las fechas si son menores a 10 anteponer el 0.";
+gotoxy(3,5);cout<<"2. El Ingreso de Fechas es por separado 1ro dia, 2do mes, 3ro Anio.";
+gotoxy(3,6);cout<<"3. Los formatos de hora son 0-23 y minutos de 0-59.";
+
 cout<<"\nCodigo: "; gets(cod);
 cout<<"Nombre: "; gets(nom);
 cout<<"Descripcion: "; gets(des);
@@ -200,8 +227,17 @@ cout<<"Ingrese min: ";cin>>min; //Min
 }while(ValidacionHora(hora,min)!=1);
 sprintf(HoraI, "%dH%d",hora,min);
 setHoraInicio(HoraI);
+/*****************************************/
+  //se guardan los datos en las variables globales
+setCodigo(cod);
+setNombre(nom);
+setDescripcion(des);
+setFechaInicio(FechaI);
+setHoraInicio(HoraI);
+setFechaFin(FechaF);
 
 /*****************************************/
+
 cout<<"\n\nDATOS DE FIN DEL EVENTO >>> ";
 do{
 cout<<"\nIngrese el d\241a: ";cin>>day; //Día
@@ -238,6 +274,64 @@ sprintf(HoraF, "%dH%d",hora,min);
 /***************************************/
 setHoraFin(HoraF);
 };
+
+/*******************************************************
+**********************BUSCAR EVENTO*********************/
+void Evento::Buscar(){
+if (getNum()!=0)
+{
+	char cod [10];
+	int cont=0;
+	cout<<"\n Ingrese codigo del Evento: ";gets(cod);
+	for(int i=0;i<getNum();i++)
+	{
+		if (strcmp(Vec[i]->getCodigo(),cod)==0)
+		{
+			Vec[i]->MostrarEvento();
+			cont++;
+		}
+	}
+if(cont!=0)
+cout<<"\n Evento Encontrado!!";
+else
+cout<<"\n El Evento no existe!!";
+}
+else
+{
+	cout<<"\n\n No hay Eventos Ingresados!!!!!";
+}
+}
+
+/*********************************************************
+********************EVENTOS DE ESTA SEMANA****************/
+void Evento::Semana(){
+clrscr();
+//funcion obtener la fecha de hoy
+char fecha[10]; //fecha de hoy para buscar
+time_t tiempo = time(0);
+struct tm *tlocal = localtime(&tiempo);
+char output[128];
+strftime(output,128,"%w",tlocal);
+cout<<output;
+if (strcmp(output,"0")==0)
+cout<<"  Hoy es Domingo!!!";
+if (strcmp(output,"1")==0)
+cout<<"  Hoy es Lunes!!!";
+if (strcmp(output,"2")==0)
+cout<<"  Hoy es Martes!!!";
+if (strcmp(output,"3")==0)
+cout<<"  Hoy es Miercoles!!!";
+if (strcmp(output,"4")==0)
+cout<<"  Hoy es Jueves!!!";
+if (strcmp(output,"5")==0)
+cout<<"  Hoy es Viernes!!!";
+if (strcmp(output,"6")==0)
+cout<<"  Hoy es Sabado!!!";
+getch();
+}
+
+
+
 
 /*******************************************************
 *********************FUNCION MOSTRAR EVENTO***********/
