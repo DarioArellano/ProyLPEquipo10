@@ -1,6 +1,7 @@
 //INTEGRANTES
 //1.- Darío Arellano   789
-// un poco mas de correciones
+//2.- Eder Naranjo     695
+// Ordenando la ayuda 
 #include <stdio.h>
 #include <dos.h>
 #include <stdlib.h>
@@ -15,13 +16,8 @@ class Evento
 private:
 
       int Num;//contador del vector
-		char Codigo[5]; //codigo del evento
-      char Nombre[15];//nombre del evento
-      char Descripcion[30];// descripcion del evento
-      char FechaInicio [10];
-      char HoraInicio[6];
-      char FechaFin[10];
-      char HoraFin[6];
+		char Codigo[5], Nombre[15], Descripcion[30];
+      char FechaInicio [12], HoraInicio[7], FechaFin[12], HoraFin[7];
       Evento * Vec[30];//vector de eventos
 
    public:
@@ -48,9 +44,12 @@ private:
       void MostrarEvento(); //muestra un evento
       void MostrarEventos(); //muestra todos los eventos
       void EventosHoy(); //funcion para ver eventos de hoy
-      int ValidacionFecha(int day,int month,int year);
-      int ValidacionHora(int hora,int min);
+      int ValidacionFecha(int day,int month,int year);//fucnion validacion
+      int ValidacionHora(int hora,int min);//funcion validacion
+		void Buscar();//funcion buscar
+void Semana();
       void Menu();
+		void Recuadro(int x1,int y1,int x2,int y2,int z);//funcion grafica
 };
 
 /********************************************************
@@ -66,6 +65,26 @@ setHoraInicio("");
 setFechaFin("");
 setHoraFin("");
 };
+
+/********************************************************
+***********************FUNCION RECUADRO**************/
+void Evento::Recuadro(x1,y1,x2,y2,z)
+{
+clrscr();
+//grafica de la interfaz
+//eje y
+for (int j=y1;j<y2;j++)
+{
+gotoxy(x1,j);printf("%c", z);
+gotoxy(x2,j);printf("%c", z);
+}
+//eje x
+for (int i=x1;i<(x2+1);i++)
+{
+gotoxy(i,y1);printf("%c", z);
+gotoxy(i,y2);printf("%c", z);
+}
+}
 
 /********************************************************
 ***********************VALIDACION DE FECHAS**************/
@@ -117,17 +136,17 @@ int Evento::ValidacionHora(hora,min){
 if ((hora<0)||(hora>23)||(min<0)||(min>59))
 {
 	cout<<"Hora incorrecta!!! Hora: 0-23  min: 00-59";
-	return (0);
+	return (0); //devuelve cuando es incorrecta la hora
 }
 else
 {
 	if(min<10)
 	{
-	cout<<"Hora Ingresada: "<<hora<<"H0"<<min;
+		cout<<"Hora Ingresada: "<<hora<<"H0"<<min;
 	}
 	else
 	{
-   cout<<"Hora Ingresada: "<<hora<<"H"<<min;
+   	cout<<"Hora Ingresada: "<<hora<<"H"<<min;
 	}
 }
 return (1); //si devuelve 1 es hora valida
@@ -137,21 +156,18 @@ return (1); //si devuelve 1 es hora valida
 /********************************************************
 **********************FUNCION LEER NUEVO EVENTO**********/
 void Evento::LeerEvento(){
+clrscr();
+Recuadro(1,1,80,8,177);//se grafica el cuadro
 int day, month, year, hora, min;
-char cod[5];
-char nom[15];
-char des[30];
-char FechaI [10];
-char HoraI [5];
-char FechaF [10];
-char HoraF [5];
-cout<<"\n*** INGRESAR NUEVO EVENTO ***"<<endl;
+char cod[5], nom[15], des[30], FechaI [12], HoraI [7], FechaF [12], HoraF [7];
+gotoxy(30,2);cout<<"RECOMENDACIONES";
+gotoxy(3,4);cout<<"1. Los datos de las fechas si son menores a 10 anteponer el 0.";
+gotoxy(3,5);cout<<"2. El Ingreso de Fechas es por separado 1ro dia, 2do mes, 3ro Anio.";
+gotoxy(3,6);cout<<"3. Los formatos de hora son 0-23 y minutos de 0-59.";
+gotoxy(1,10);cout<<"*** INGRESAR NUEVO EVENTO ***"<<endl;
 cout<<"\nCodigo: "; gets(cod);
 cout<<"Nombre: "; gets(nom);
 cout<<"Descripcion: "; gets(des);
-setCodigo(cod);
-setNombre(nom);
-setDescripcion(des);
 /*********************************************/
 cout<<"\nDATOS DE INICIO DEL EVENTO >>> ";
 do{
@@ -167,28 +183,20 @@ sprintf(FechaI, "0%d/0%d/%d",day,month,year);
 else
 {
 	if (day<10)
-	{
 		 sprintf(FechaI, "0%d/%d/%d",day,month,year);
-	}
 	else
 	{
 		if(month<10)
-		{
       sprintf(FechaI, "%d/0%d/%d",day,month,year);
-		}
       else
       sprintf(FechaI, "%d/%d/%d",day,month,year);
 	}
 }
-
-setFechaInicio(FechaI);
 do{
 cout<<"\nIngrese Hora: ";cin>>hora; //Hora
 cout<<"Ingrese min: ";cin>>min; //Min
 }while(ValidacionHora(hora,min)!=1);
 sprintf(HoraI, "%dH%d",hora,min);
-setHoraInicio(HoraI);
-
 /*****************************************/
 cout<<"\n\nDATOS DE FIN DEL EVENTO >>> ";
 do{
@@ -204,26 +212,28 @@ sprintf(FechaF, "0%d/0%d/%d",day,month,year);
 else
 {
 	if (day<10)
-	{
 		 sprintf(FechaF, "0%d/%d/%d",day,month,year);
-	}
 	else
 	{
 		if(month<10)
-		{
       sprintf(FechaF, "%d/0%d/%d",day,month,year);
-		}
       else
       sprintf(FechaF, "%d/%d/%d",day,month,year);
 	}
 }
-setFechaFin(FechaF);
 do{
 cout<<"\nIngrese Hora: ";cin>>hora; //Hora
 cout<<"Ingrese min: ";cin>>min; //Min
 }while(ValidacionHora(hora,min)!=1);
 sprintf(HoraF, "%dH%d",hora,min);
 /***************************************/
+//se guardan los datos en las variables globales
+setCodigo(cod);
+setNombre(nom);
+setDescripcion(des);
+setFechaInicio(FechaI);
+setHoraInicio(HoraI);
+setFechaFin(FechaF);
 setHoraFin(HoraF);
 };
 
@@ -233,7 +243,8 @@ void Evento::MostrarEvento()
 {
  cout<<"\nCodigo: "<<getCodigo();
  cout<<"\nNombre: "<<getNombre();
- cout<<"\nDescripcion: "<<getDescripcion();
+ if (getDescripcion()!="")//se omite descripcion si no hay nada
+{cout<<"\nDescripcion: "<<getDescripcion();}
  cout<<"\nFecha inicio: "<<getFechaInicio();
  cout<<"\nHora inicio: "<<getHoraInicio();
  cout<<"\nFecha Fin: "<<getFechaFin();
@@ -252,8 +263,7 @@ void Evento::MostrarEventos()
 	}
 	else
 	{
-		clrscr();
-		cout<<"\nNo hay Eventos Ingresados!!!";
+		cout<<"\n\n No hay Eventos Ingresados!!!";
    }
 getch();
 };
@@ -264,31 +274,89 @@ void Evento::EventosHoy()
 {
 if (getNum()!=0)
 {
+int cont=0;
 //funcion obtener la fecha de hoy
 char fecha[10]; //fecha de hoy para buscar
 time_t tiempo = time(0);
 struct tm *tlocal = localtime(&tiempo);
 char output[128];
 strftime(output,128,"%d/%m/%Y",tlocal);
-printf("%s\n",output);
+cout<<output;
 
 strcpy(fecha,output);
 
 for(int i=0;i<getNum();i++)
    {
     	if (strcmp(Vec[i]->getFechaInicio(),fecha)==0)
+      {
       	Vec[i]->MostrarEvento();
+         cont++;
+      }
    }
+   if (cont==0)
+   cout<<"\n\n No hay eventos Hoy!!";
 }
 else
 {
-	cout<<"\nNo hay eventos hoy!!!";
+	cout<<"\n\n No hay Eventos Ingresados!!!!!";
 }
-
 getch();
 };
 
+/*******************************************************
+**********************BUSCAR EVENTO*********************/
+void Evento::Buscar(){
+if (getNum()!=0)
+{
+	char cod [10];
+	int cont=0;
+	cout<<"\n Ingrese codigo del Evento: ";gets(cod);
+	for(int i=0;i<getNum();i++)
+	{
+		if (strcmp(Vec[i]->getCodigo(),cod)==0)
+		{
+			Vec[i]->MostrarEvento();
+			cont++;
+		}
+	}
+if(cont!=0)
+cout<<"\n Evento Encontrado!!";
+else
+cout<<"\n El Evento no existe!!";
+}
+else
+{
+	cout<<"\n\n No hay Eventos Ingresados!!!!!";
+}
+}
+
 /*********************************************************
+********************EVENTOS DE ESTA SEMANA****************/
+void Evento::Semana(){
+clrscr();
+//funcion obtener la fecha de hoy
+char fecha[10]; //fecha de hoy para buscar
+time_t tiempo = time(0);
+struct tm *tlocal = localtime(&tiempo);
+char output[128];
+strftime(output,128,"%w",tlocal);
+cout<<output;
+if (strcmp(output,"0")==0)
+cout<<"  Hoy es Domingo!!!";
+if (strcmp(output,"1")==0)
+cout<<"  Hoy es Lunes!!!";
+if (strcmp(output,"2")==0)
+cout<<"  Hoy es Martes!!!";
+if (strcmp(output,"3")==0)
+cout<<"  Hoy es Miercoles!!!";
+if (strcmp(output,"4")==0)
+cout<<"  Hoy es Jueves!!!";
+if (strcmp(output,"5")==0)
+cout<<"  Hoy es Viernes!!!";
+if (strcmp(output,"6")==0)
+cout<<"  Hoy es Sabado!!!";
+getch();
+}
 
 /*********************************************************
 **********************MENU*******************************/
@@ -299,18 +367,8 @@ clrscr();
 int a;
 //grafica de la interfaz
 //eje y
-for (int j=3;j<21;j++)
-{
-gotoxy(21,j);cout<<"*";
-gotoxy(58,j);cout<<"*";
-}
-//eje x
-for (int i=21;i<59;i++)
-{
-gotoxy(i,3);cout<<"*";
-gotoxy(i,21);cout<<"*";
-}
-gotoxy(36,3);cout<<"<<<MENU>>>";
+Recuadro(23,3,59,21,177);
+gotoxy(38,3);cout<<"::MENU::";
 gotoxy(29,5);cout<<"<<CALENDARIO DE EVENTOS>>";
 gotoxy(25,7);cout<<"1. Nuevo Evento";
 gotoxy(25,9);cout<<"2. Ver Eventos de Hoy";
@@ -340,18 +398,19 @@ do{
       break;
    case 2:
    				clrscr();
-               cout<<"\n EVENTOS DE HOY ";
+               cout<<"\n      <<<EVENTOS DE HOY>>> ";
                EventosHoy();
-               getch();
       break;
    case 3:
-   				clrscr();
-               cout<<"\n EVENTOS ESTA SEMANA";
+   		clrscr();
+               cout<<"\n    <<<EVENTOS ESTA SEMANA>>>";
+		Semana();
                getch();
       break;
    case 4:
-   				clrscr();
-               cout<<"\n BUSCAR EVENTO";
+   		clrscr();
+               cout<<"\n     <<<BUSCAR EVENTO>>>";
+					Buscar();
                getch();
       break;
     case 5:
